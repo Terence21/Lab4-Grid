@@ -1,5 +1,7 @@
 package temple.edu.gridassignment;
 
+import android.graphics.Color;
+import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +16,7 @@ public class PaletteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle(R.string.name_Palette_activity);
-
+    //1440 * 2880 560dpi
         ArrayList<String> colors = new ArrayList<>();
         colors.add("green");
         colors.add("blue");
@@ -22,9 +24,15 @@ public class PaletteActivity extends AppCompatActivity {
         colors.add("yellow");
         colors.add("teal");
         colors.add("cyan");
+        colors.add("lime");
+        colors.add("darkgray");
+        colors.add("purple");
+
+
+
 
         GridView grid = findViewById(R.id._ColorGrid);
-        grid.setColumnWidth(3);
+        grid.setNumColumns(3);
 
         BaseAdapter adapter = new ColorAdapter(this,colors);
         grid.setAdapter(adapter);

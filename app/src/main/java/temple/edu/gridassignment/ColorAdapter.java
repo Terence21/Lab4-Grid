@@ -2,6 +2,7 @@ package temple.edu.gridassignment;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -42,7 +43,10 @@ public class ColorAdapter extends BaseAdapter {
             textView = (TextView) convertView;
         }
 
+
+
         textView.setText(colors.get(position));
+        textView.setLines(5); textView.setGravity(Gravity.CENTER);
         textView.setBackgroundColor(Color.parseColor(colors.get(position)));
 
         return textView;
