@@ -1,9 +1,12 @@
 package temple.edu.gridassignment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -29,12 +32,26 @@ public class PaletteActivity extends AppCompatActivity {
         colors.add("purple");
 
 
-
-
         GridView grid = findViewById(R.id._ColorGrid);
         grid.setNumColumns(3);
 
         BaseAdapter adapter = new ColorAdapter(this,colors);
         grid.setAdapter(adapter);
+
+        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                send(view);
+            }
+        });
+    }
+
+    public void send(View v){
+        Intent intent = new Intent(PaletteActivity.this, CanvasActivity.class);
+        //intent.putExtra(String.valueOf(R.string.color_message), ((TextView)v).getText());
+        String title = "color_message";
+        intent.putExtra(title,((TextView)v).getText().toString());
+        startActivity(intent);
+
     }
 }

@@ -5,6 +5,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".CanvasActivity">
+        tools:context=".CanvasActivity" android:id="@+id/_constraint">
 
+    <TextView
+            android:text="TextView"
+            android:layout_width="125dp"
+            android:layout_height="60dp" android:id="@+id/_colorText"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="236dp" android:layout_marginEnd="145dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="435dp"
+            app:layout_constraintVertical_bias="1.0" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="145dp" android:textSize="18sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
