@@ -9,6 +9,6 @@ public class PaletteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.setTitle("Palette Activity");
+        this.setTitle(R.string.name_Palette_activity);
     }
 }

@@ -9,6 +9,6 @@ public class CanvasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canvas);
-        this.setTitle("Canvas Activity");
+        this.setTitle(R.string.name_Canvas_activity);
     }
 }
