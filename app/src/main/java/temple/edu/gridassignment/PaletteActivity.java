@@ -18,7 +18,7 @@ public class PaletteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle(R.string.name_Palette_activity);
-    //1440 * 2880 560dpi
+
         ArrayList<String> colors = new ArrayList<>();
         colors.add("green");
         colors.add("blue");
@@ -45,11 +45,13 @@ public class PaletteActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * send the text value of view to another activity
+     * @param v TextView from from ColorAdapter to send text to activity
+     */
     public void send(View v){
         Intent intent = new Intent(PaletteActivity.this, CanvasActivity.class);
-        //intent.putExtra(String.valueOf(R.string.color_message), ((TextView)v).getText());
-        String title = "color_message";
-        intent.putExtra(title,((TextView)v).getText().toString());
+        intent.putExtra(String.valueOf(R.string.intent_name),((TextView)v).getText().toString());
         startActivity(intent);
 
     }
