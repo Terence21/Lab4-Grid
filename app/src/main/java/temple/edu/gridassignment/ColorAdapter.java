@@ -33,6 +33,9 @@ public class ColorAdapter extends BaseAdapter {
         return 0;
     }
 
+    /**
+     * To set size of cell, enlarge textView to size of 5 lines, and center text
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView;
@@ -42,8 +45,6 @@ public class ColorAdapter extends BaseAdapter {
         } else{
             textView = (TextView) convertView;
         }
-
-
 
         textView.setText(colors.get(position).toUpperCase());
         textView.setLines(5); textView.setGravity(Gravity.CENTER);

@@ -22,8 +22,7 @@ public class CanvasActivity extends AppCompatActivity {
 
         Intent receiver = getIntent();
 
-        String intentData = receiver.getExtras().getString("color_message");
-
+        String intentData = receiver.getExtras().getString(String.valueOf(R.string.intent_name));
         TextView textView = findViewById(R.id._colorText);
         textView.setText(intentData); textView.setGravity(Gravity.CENTER);
 

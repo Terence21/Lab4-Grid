@@ -2,5 +2,5 @@
     <string name="app_name">Color Changing App</string>
     <string name="name_Canvas_activity">Canvas Activity</string>
     <string name="name_Palette_activity">Palette Activity</string>
-    <string name="color_message"/>
+    <string name="intent_name"/>
 </resources>
