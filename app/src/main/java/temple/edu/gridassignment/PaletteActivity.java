@@ -2,6 +2,7 @@ package temple.edu.gridassignment;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.LocaleList;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class PaletteActivity extends AppCompatActivity {
 
@@ -36,7 +38,7 @@ public class PaletteActivity extends AppCompatActivity {
         GridView grid = findViewById(R.id._ColorGrid);
         grid.setNumColumns(3);
 
-        BaseAdapter adapter = new ColorAdapter(this,colors);
+        BaseAdapter adapter = new ColorAdapter(this,colors,res);
         grid.setAdapter(adapter);
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
