@@ -2,5 +2,17 @@
     <string name="app_name">Color Changing App</string>
     <string name="name_Canvas_activity">Canvas Activity</string>
     <string name="name_Palette_activity">Palette Activity</string>
-    <string name="intent_name"/>
+    <string name="intent_name">name</string>
+    <string name="prompt_text">Click a color below to launch the Canvas</string>
+    <string-array name="color_array">
+        <item>green</item>
+        <item>blue</item>
+        <item>red</item>
+        <item>yellow</item>
+        <item>teal</item>
+        <item>cyan</item>
+        <item>magenta</item>
+        <item>darkgray</item>
+        <item>purple</item>
+    </string-array>
 </resources>
