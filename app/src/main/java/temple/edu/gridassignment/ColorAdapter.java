@@ -18,16 +18,16 @@ import java.util.Locale;
 
 public class ColorAdapter extends BaseAdapter {
 
-    private ArrayList<String> colors;
+    private final ArrayList<String> colors;
     private final Context context;
-    private final Resources res;
-    Configuration configuration;
+    private final Configuration configuration;
+    private final Resources resources;
 
-    public ColorAdapter(Context context, ArrayList<String> colors, Resources res, Configuration configuration){
+    public ColorAdapter(Context context, ArrayList<String> colors, Configuration configuration, Resources resources){
         this.context = context;
         this.colors = colors;
-        this.res = res;
         this.configuration = configuration;
+        this.resources = resources;
     }
     @Override
     public int getCount() {
@@ -61,9 +61,6 @@ public class ColorAdapter extends BaseAdapter {
         textView.setLines(5);
         textView.setGravity(Gravity.CENTER);
 
-
-        Log.i("yes", configuration.getLocales().toLanguageTags());
-
         textView.setText(colors.get(position).toUpperCase());
         textView.setBackgroundColor(Color.parseColor(englishColor_toParse(position)));
 
@@ -76,7 +73,7 @@ public class ColorAdapter extends BaseAdapter {
      * @return if the current configuration is english or not
      */
     private boolean isFrench(){
-        return !configuration.getLocales().toLanguageTags().equals("en");
+        return !configuration.getLocales().toLanguageTags().equals(resources.getString(R.string.locale_en));
     }
 
     /**
@@ -88,7 +85,7 @@ public class ColorAdapter extends BaseAdapter {
     private String englishColor_toParse(int position){
         if (isFrench()) {
             Configuration config = new Configuration();
-            config.setLocale(new Locale("en"));
+            config.setLocale(new Locale(resources.getString(R.string.locale_en)));
             return context.getApplicationContext().createConfigurationContext(config)
                     .getResources()
                     .getStringArray(R.array.color_array)[position];

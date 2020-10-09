@@ -23,13 +23,13 @@ public class CanvasActivity extends AppCompatActivity {
 
         Intent receiver = getIntent();
 
-        String english = receiver.getExtras().getString(Identifiers.ENGLISH.id);
-        String language = receiver.getExtras().getString(Identifiers.LANGUAGE.id);
+        String english = receiver.getExtras().getString(getResources().getString(R.string.English));
+        String language = receiver.getExtras().getString(getResources().getString(R.string.Language));
+
         TextView textView = findViewById(R.id._colorText);
         textView.setText(language); textView.setGravity(Gravity.CENTER);
 
         ConstraintLayout layout = findViewById(R.id._constraint);
-
         layout.setBackgroundColor(Color.parseColor(english));
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.LocaleList;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +33,7 @@ public class PaletteActivity extends AppCompatActivity {
         user_prompt.setGravity(Gravity.CENTER);
 
 
-        Resources res = getResources();
+        final Resources res = getResources();
         Configuration configuration = res.getConfiguration();
         String[] color_arr = res.getStringArray(R.array.color_array);
         ArrayList<String> colors = new ArrayList<>(Arrays.asList(color_arr));
@@ -40,13 +41,13 @@ public class PaletteActivity extends AppCompatActivity {
         GridView grid = findViewById(R.id._ColorGrid);
         grid.setNumColumns(3);
 
-        BaseAdapter adapter = new ColorAdapter(this,colors,res, configuration);
+        BaseAdapter adapter = new ColorAdapter(this,colors, configuration, res);
         grid.setAdapter(adapter);
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                send(view, position, PaletteActivity.this);
+                send(view, position, PaletteActivity.this, res);
             }
         });
     }
@@ -55,16 +56,17 @@ public class PaletteActivity extends AppCompatActivity {
      * send the text value of view to another activity
      * @param v TextView from from ColorAdapter to send text to activity
      */
-    public void send(View v, int position, Context context){
-        Intent intent = new Intent(PaletteActivity.this, CanvasActivity.class);
+    public void send(View v, int position, Context context, Resources res){
+        Intent intent = new Intent(context, CanvasActivity.class);
 
-        //french text from textView
-        intent.putExtra(Identifiers.LANGUAGE.id, ((TextView)v).getText());
+        //respective language text from textView
+        intent.putExtra(res.getString(R.string.Language), ((TextView)v).getText());
 
-        //always send english output of array at position
+        //always send english output of array at position... is to be parsed by color
         Configuration configuration = new Configuration();
-        configuration.setLocale(new Locale("en"));
-        intent.putExtra(Identifiers.ENGLISH.id, this.getApplicationContext().createConfigurationContext(configuration)
+        configuration.setLocale(new Locale(res.getString(R.string.locale_en)));
+
+        intent.putExtra(res.getString(R.string.English), this.getApplicationContext().createConfigurationContext(configuration)
                 .getResources().getStringArray(R.array.color_array)[position]);
         startActivity(intent);
 
