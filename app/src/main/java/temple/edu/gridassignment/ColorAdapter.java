@@ -19,13 +19,15 @@ import java.util.Locale;
 public class ColorAdapter extends BaseAdapter {
 
     private ArrayList<String> colors;
-    private Context context;
+    private final Context context;
     private final Resources res;
+    Configuration configuration;
 
-    public ColorAdapter(Context context, ArrayList<String> colors, Resources res){
+    public ColorAdapter(Context context, ArrayList<String> colors, Resources res, Configuration configuration){
         this.context = context;
         this.colors = colors;
         this.res = res;
+        this.configuration = configuration;
     }
     @Override
     public int getCount() {
@@ -49,37 +51,48 @@ public class ColorAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView;
 
-        if (convertView == null){
+        if (convertView == null) {
             textView = new TextView(this.context);
-        } else{
+        } else {
             textView = (TextView) convertView;
         }
 
 
-        textView.setLines(5); textView.setGravity(Gravity.CENTER);
+        textView.setLines(5);
+        textView.setGravity(Gravity.CENTER);
 
 
+        Log.i("yes", configuration.getLocales().toLanguageTags());
 
-        Configuration configuration = new Configuration();
-        configuration.setLocale(new Locale("en"));
+        textView.setText(colors.get(position).toUpperCase());
+        textView.setBackgroundColor(Color.parseColor(englishColor_toParse(position)));
 
-        if (isFrench()) {
-            colors = new ArrayList<String>(Arrays.asList(context.getApplicationContext().createConfigurationContext(configuration).getResources().getStringArray(R.array.color_array)));
-            Log.i("yes", colors.get(position));
-            textView.setBackgroundColor(Color.parseColor(colors.get(position)));
-        }
-        if (isFrench()) {
-             configuration.setLocale(new Locale("fr"));
-            colors = new ArrayList<String>(Arrays.asList(context.getApplicationContext().createConfigurationContext(configuration).getResources().getStringArray(R.array.color_array)));
-            textView.setText(colors.get(position).toUpperCase());
-        }
 
         return textView;
     }
 
+    /**
+     *
+     * @return if the current configuration is english or not
+     */
     private boolean isFrench(){
-        LocaleList localelist = res.getConfiguration().getLocales();
-        Locale locale = localelist.get(0);
-        return !locale.getCountry().equals("en");
+        return !configuration.getLocales().toLanguageTags().equals("en");
+    }
+
+    /**
+     * grab a color based off english configuration
+     * @param position grab position of the english color array
+     * @return the english color at the position
+     */
+
+    private String englishColor_toParse(int position){
+        if (isFrench()) {
+            Configuration config = new Configuration();
+            config.setLocale(new Locale("en"));
+            return context.getApplicationContext().createConfigurationContext(config)
+                    .getResources()
+                    .getStringArray(R.array.color_array)[position];
+        }
+        return colors.get(position);
     }
 }
