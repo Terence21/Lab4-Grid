@@ -18,4 +18,5 @@
     <string name="Language">Language</string>
     <string name="English">English</string>
     <string name="locale_en">en</string>
+    <string name="position">position</string>
 </resources>

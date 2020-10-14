@@ -14,10 +14,11 @@
         <item>cyan</item>
         <item>magenta</item>
         <item>grisfonce\</item>
-        <item>transparent</item>
+        <item>violette</item>
     </string-array>
     <!-- the two strings below don't need to be changed, aren't shown to user -->
     <string name="Language">Language</string>
     <string name="English">English</string>
     <string name="locale_en">en</string>
+    <string name="position">position</string>
 </resources>

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.LocaleList;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,6 +66,8 @@ public class PaletteActivity extends AppCompatActivity {
 
         intent.putExtra(res.getString(R.string.English), this.getApplicationContext().createConfigurationContext(configuration)
                 .getResources().getStringArray(R.array.color_array)[position]);
+
+        intent.putExtra(res.getString(R.string.position), position);
         startActivity(intent);
 
     }
