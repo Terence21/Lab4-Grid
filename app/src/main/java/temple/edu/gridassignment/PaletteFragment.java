@@ -49,6 +49,7 @@ public class PaletteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // attachToRoot means instantly setting view to root of container specified...
         // in MainActivity the fragment manager is to add the root view of this fragment to the container in activity_main
+        // define on Attach if you want to do so this way
         View view = inflater.inflate(R.layout.fragment_palette, container, false);
 
         GridView grid = (GridView) view.findViewById(R.id._colorGrid);
@@ -58,7 +59,8 @@ public class PaletteFragment extends Fragment {
         ((GridView)view.findViewById(R.id._colorGrid)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listener.displayColor(((TextView) view).getText().toString());
+                Log.i("Define", "color: " + ((TextView) view).getText().toString());
+                listener.displayColor(position, ((TextView) view).getText().toString());
             }
         });
         return view;
@@ -75,7 +77,7 @@ public class PaletteFragment extends Fragment {
     }
 
     public interface FragmentInteractionListener{
-        void displayColor(String color);
+        void displayColor(int position, String color);
     }
 
 

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements PaletteFragment.FragmentInteractionListener {
 
-    boolean isClicked;
+    boolean clickedColor;
     FragmentManager fm;
 
     @Override
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle(R.string.name_Palette_activity);
+
+        clickedColor = false;
 
         TextView user_prompt = (TextView) findViewById(R.id._prompt);
         user_prompt.setText(R.string.prompt_text);
@@ -49,34 +52,29 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
                 .commit();
 
 
-
-
     }
 
-    /**
-     * send the text value of view to another activity
-     * @param v TextView from from ColorAdapter to send text to activity
-     */
-    public void send(View v, int position, Context context, Resources res){
-        Intent intent = new Intent(context, CanvasActivity.class);
-
-        //respective language text from textView
-        intent.putExtra(res.getString(R.string.Language), ((TextView)v).getText());
-
-        //always send english output of array at position... is to be parsed by color
-        Configuration configuration = new Configuration();
-        configuration.setLocale(new Locale(res.getString(R.string.locale_en)));
-
-        intent.putExtra(res.getString(R.string.English), this.getApplicationContext().createConfigurationContext(configuration)
-                .getResources().getStringArray(R.array.color_array)[position]);
-
-        intent.putExtra(res.getString(R.string.position), position);
-        startActivity(intent);
-
-    }
 
     @Override
-    public void displayColor(String color) {
+    public void displayColor(int positon, String color) {
+        if (clickedColor) {
+            ((CanvasFragment) getSupportFragmentManager().findFragmentById(R.id._colorView)).defineColorView(positon, color);
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.replace(R.id.container_2, getSupportFragmentManager().findFragmentById(R.id._colorView))
+                    .commit();
+        } else {
+            // error is taking place here, it says null object on setText
+            CanvasFragment canvasFragment = CanvasFragment.newInstance(this);
+            canvasFragment.defineColorView(positon,color);
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.container_2, canvasFragment)
+                    .commit();
+            clickedColor = true;
+
+        }
+
 
     }
 }

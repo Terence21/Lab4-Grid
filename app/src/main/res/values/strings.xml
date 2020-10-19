@@ -3,7 +3,7 @@
     <string name="name_Canvas_activity">Canvas Activity</string>
     <string name="name_Palette_activity">Palette Activity</string>
     <string name="intent_name">name</string>
-    <string name="prompt_text">Click a color below to launch the Canvas</string>
+    <string name="prompt_text">Choose a color cell to display the color</string>
     <string-array name="color_array">
         <item>green</item>
         <item>blue</item>
