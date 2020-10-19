@@ -11,7 +11,7 @@
             android:theme="@style/AppTheme">
         <activity android:name=".CanvasActivity">
         </activity>
-        <activity android:name=".PaletteActivity" >
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -12,12 +12,17 @@ import android.widget.GridView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class PaletteActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PaletteFragment.FragmentInteractionListener {
+
+    boolean isClicked;
+    FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +35,22 @@ public class PaletteActivity extends AppCompatActivity {
         user_prompt.setTextSize(12);
         user_prompt.setGravity(Gravity.CENTER);
 
+        ArrayList<String> colors = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.color_array)));
 
-        final Resources res = getResources();
-        Configuration configuration = res.getConfiguration();
-        String[] color_arr = res.getStringArray(R.array.color_array);
-        ArrayList<String> colors = new ArrayList<>(Arrays.asList(color_arr));
+        Bundle bundle = new Bundle();
+        PaletteFragment fragment = PaletteFragment.newInstance(colors);
+        bundle.putStringArrayList("key", colors);
+        fragment.setArguments(bundle);
 
-        GridView grid = findViewById(R.id._ColorGrid);
-        grid.setNumColumns(3);
 
-        BaseAdapter adapter = new ColorAdapter(this,colors, configuration, res);
-        grid.setAdapter(adapter);
+        fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .add(R.id.container_1, fragment)
+                .commit();
 
-        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                send(view, position, PaletteActivity.this, res);
-            }
-        });
+
+
+
     }
 
     /**
@@ -69,6 +72,11 @@ public class PaletteActivity extends AppCompatActivity {
 
         intent.putExtra(res.getString(R.string.position), position);
         startActivity(intent);
+
+    }
+
+    @Override
+    public void displayColor(String color) {
 
     }
 }
