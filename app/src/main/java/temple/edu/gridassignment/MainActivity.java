@@ -57,23 +57,21 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
 
     @Override
     public void displayColor(int positon, String color) {
-        if (clickedColor) {
-            ((CanvasFragment) getSupportFragmentManager().findFragmentById(R.id._colorView)).defineColorView(positon, color);
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.replace(R.id.container_2, getSupportFragmentManager().findFragmentById(R.id._colorView))
+        
+        CanvasFragment canvas = CanvasFragment.newInstance(this);
+        canvas.defineColorView(positon, color);
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        if (clickedColor){
+            ft.replace(R.id.container_2, canvas)
                     .commit();
-        } else {
-            // error is taking place here, it says null object on setText
-            CanvasFragment canvasFragment = CanvasFragment.newInstance(this);
-            canvasFragment.defineColorView(positon,color);
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.add(R.id.container_2, canvasFragment)
+        } else{
+            ft.add(R.id.container_2, canvas)
                     .commit();
             clickedColor = true;
-
         }
+
 
 
     }
