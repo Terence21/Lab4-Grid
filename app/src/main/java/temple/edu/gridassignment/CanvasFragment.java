@@ -3,6 +3,7 @@ package temple.edu.gridassignment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
@@ -22,12 +23,7 @@ public class CanvasFragment extends Fragment {
 
     }
 
-    public static CanvasFragment newInstance(Context context) {
-        CanvasFragment fragment = new CanvasFragment();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,10 +40,13 @@ public class CanvasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view  =  inflater.inflate(R.layout.fragment_canvas, container, false);
         TextView colorView = (TextView) view.findViewById(R.id._colorView);
-        colorView.setBackgroundColor(Color.parseColor(color));
-        colorView.setText(view.getResources().getStringArray(R.array.color_array)[position].toUpperCase());
-        colorView.setGravity(Gravity.CENTER);
-        colorView.setTextSize(15);
+        Log.i("create_color", "onCreateView: " + color);
+        if (color != null) {
+            colorView.setBackgroundColor(Color.parseColor(color));
+            colorView.setText(view.getResources().getStringArray(R.array.color_array)[position].toUpperCase());
+            colorView.setGravity(Gravity.CENTER);
+            colorView.setTextSize(15);
+        }
         return view;
     }
 

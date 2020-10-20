@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
 
     boolean clickedColor;
     FragmentManager fm;
+    public final static String KEY = "key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +40,12 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
         user_prompt.setTextSize(12);
         user_prompt.setGravity(Gravity.CENTER);
 
-        ArrayList<String> colors = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.color_array)));
+        final Resources res = getResources();
+        ArrayList<String> colors = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.color_array)));
 
         Bundle bundle = new Bundle();
         PaletteFragment fragment = PaletteFragment.newInstance(colors);
-        bundle.putStringArrayList("key", colors);
+        bundle.putStringArrayList(MainActivity.KEY, colors);
         fragment.setArguments(bundle);
 
 
@@ -56,9 +59,24 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
 
 
     @Override
+    public void onPause(){
+        super.onPause();
+        clickedColor = false;
+
+    }
+
+
+
+    @Override
+    public void updateConfiguration(Configuration config){
+
+    }
+
+
+    @Override
     public void displayColor(int positon, String color) {
 
-        CanvasFragment canvas = CanvasFragment.newInstance(this);
+        CanvasFragment canvas = new CanvasFragment();
         canvas.defineColorView(positon, color);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -71,8 +89,5 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
                     .commit();
             clickedColor = true;
         }
-
-
-
     }
 }

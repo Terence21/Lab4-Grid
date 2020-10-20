@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -59,12 +58,16 @@ public class ColorAdapter extends BaseAdapter {
         textView.setLines(5);
         textView.setGravity(Gravity.CENTER);
 
-        textView.setText(colors.get(position).toUpperCase());
+        textView.setText((context.getResources().getStringArray(R.array.color_array)[position]));
         textView.setBackgroundColor(Color.parseColor(context.getResources().getStringArray(R.array.color_array)[position]));
 
 
         return textView;
     }
+
+
+
+
 
 
 

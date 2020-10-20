@@ -20,6 +20,6 @@
     <string name="locale_en">en</string>
     <string name="position">position</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="grid_name">_ColorGrid</string>
-    <string name="textView_name">_ColorView</string>
+    <string name="grid_name" translatable="false">_ColorGrid</string>
+    <string name="textView_name" translatable="false">_ColorView</string>
 </resources>

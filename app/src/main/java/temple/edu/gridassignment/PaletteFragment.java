@@ -2,6 +2,7 @@ package temple.edu.gridassignment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ public class PaletteFragment extends Fragment {
 
     FragmentInteractionListener listener;
     ArrayList<String> colors;
+    ColorAdapter adapter;
 
 
     public PaletteFragment() {
@@ -32,8 +34,7 @@ public class PaletteFragment extends Fragment {
     public static PaletteFragment newInstance(ArrayList<String> colors) {
         PaletteFragment fragment = new PaletteFragment();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("key", colors);
-        fragment.colors = colors;
+        bundle.putStringArrayList(MainActivity.KEY, colors);
         fragment.setArguments(bundle);
         return fragment;
 
@@ -42,6 +43,10 @@ public class PaletteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null){
+            colors = getArguments().getStringArrayList(MainActivity.KEY);
+            adapter = new ColorAdapter(getActivity(), colors);
+        }
     }
 
     @Override
@@ -54,8 +59,7 @@ public class PaletteFragment extends Fragment {
 
         GridView grid = (GridView) view.findViewById(R.id._colorGrid);
         ((GridView) view.findViewById(R.id._colorGrid)).setNumColumns(3);
-
-        ((GridView) view.findViewById(R.id._colorGrid)).setAdapter(new ColorAdapter(getActivity(), colors));
+        ((GridView) view.findViewById(R.id._colorGrid)).setAdapter(adapter);
         ((GridView)view.findViewById(R.id._colorGrid)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,11 +77,13 @@ public class PaletteFragment extends Fragment {
             listener = (FragmentInteractionListener) context;
         } catch (ClassCastException e){
             Log.i("class cast error", "Must implement FragmentInteractionListener: " + e.getLocalizedMessage());
+            throw new ClassCastException(e.getLocalizedMessage());
         }
     }
 
     public interface FragmentInteractionListener{
         void displayColor(int position, String color);
+        void updateConfiguration(Configuration config);
     }
 
 
