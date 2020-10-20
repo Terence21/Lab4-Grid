@@ -5,7 +5,7 @@
     <string name="name_Palette_activity">Activité de la palette</string>
     <string name="intent_name">nom</string>
     <string name="prompt_text">Cliquez sur une couleur ci-dessous pour lancer le canevas</string>
-    <string-array name="fr_color_array" tools:ignore="ExtraTranslation">
+    <string-array name="color_array" >
         <item>vert</item>
         <item>bleu</item>
         <item>rouge</item>
@@ -16,8 +16,8 @@
         <item>grisfonce\</item>
         <item>violette</item>
     </string-array>
-    <!-- the two strings below don't need to be changed, aren't shown to user -->
-    <string-array name="color_array">
+    <!-- the two strings below don't need to be changed, aren't shown to user
+    <string-array name="fr_color_array">
         <item>green</item>
         <item>blue</item>
         <item>red</item>
@@ -27,7 +27,7 @@
         <item>magenta</item>
         <item>darkgray</item>
         <item>purple</item>
-    </string-array>
+    </string-array> -->
     <string name="Language">Language</string>
     <string name="English">English</string>
     <string name="locale_en">en</string>

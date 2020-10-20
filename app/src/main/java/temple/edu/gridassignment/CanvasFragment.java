@@ -41,6 +41,7 @@ public class CanvasFragment extends Fragment {
         View view  =  inflater.inflate(R.layout.fragment_canvas, container, false);
         TextView colorView = (TextView) view.findViewById(R.id._colorView);
         Log.i("create_color", "onCreateView: " + color);
+        
         if (color != null) {
             colorView.setBackgroundColor(Color.parseColor(color));
             colorView.setText(view.getResources().getStringArray(R.array.color_array)[position].toUpperCase());

@@ -45,7 +45,7 @@ public class PaletteFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null){
             colors = getArguments().getStringArrayList(MainActivity.KEY);
-            adapter = new ColorAdapter(getActivity(), colors);
+            adapter = new ColorAdapter(getActivity(), colors, getResources().getConfiguration(), getResources());
         }
     }
 

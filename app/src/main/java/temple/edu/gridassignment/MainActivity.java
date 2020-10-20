@@ -77,6 +77,10 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
     public void displayColor(int positon, String color) {
 
         CanvasFragment canvas = new CanvasFragment();
+        Configuration english_configuration = new Configuration();
+        english_configuration.setLocale(new Locale("en"));
+        color = this.getApplicationContext().createConfigurationContext(english_configuration).getResources().getStringArray(R.array.color_array)[positon];
+
         canvas.defineColorView(positon, color);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
