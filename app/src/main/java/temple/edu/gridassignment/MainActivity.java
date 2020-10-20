@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
 
     @Override
     public void displayColor(int positon, String color) {
-        
+
         CanvasFragment canvas = CanvasFragment.newInstance(this);
         canvas.defineColorView(positon, color);
         FragmentManager fm = getSupportFragmentManager();
