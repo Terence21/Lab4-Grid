@@ -15,9 +15,8 @@ import android.view.ViewGroup;
 
 public class CanvasFragment extends Fragment {
 
-   String color;
-   int position;
-   String[] colors;
+    String color;
+    int position;
 
     public CanvasFragment() {
 
@@ -29,7 +28,6 @@ public class CanvasFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        colors = getResources().getStringArray(R.array.color_array);
 
 
     }
@@ -41,7 +39,7 @@ public class CanvasFragment extends Fragment {
         View view  =  inflater.inflate(R.layout.fragment_canvas, container, false);
         TextView colorView = (TextView) view.findViewById(R.id._colorView);
         Log.i("create_color", "onCreateView: " + color);
-        
+
         if (color != null) {
             colorView.setBackgroundColor(Color.parseColor(color));
             colorView.setText(view.getResources().getStringArray(R.array.color_array)[position].toUpperCase());
@@ -58,4 +56,6 @@ public class CanvasFragment extends Fragment {
     }
 
 
+
 }
+//send previous color during configuration change

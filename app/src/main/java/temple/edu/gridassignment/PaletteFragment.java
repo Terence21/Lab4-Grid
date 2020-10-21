@@ -83,7 +83,7 @@ public class PaletteFragment extends Fragment {
 
     public interface FragmentInteractionListener{
         void displayColor(int position, String color);
-        void updateConfiguration(Configuration config);
+
     }
 
 

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -23,9 +24,15 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements PaletteFragment.FragmentInteractionListener {
 
-    boolean clickedColor;
-    FragmentManager fm;
+
     public final static String KEY = "key";
+    public final static String COLOR = "color";
+    public final static String POSITION = "position";
+    public final static String CLICKED_COLOR = "clicked_color";
+
+    private boolean clickedColor;
+    private String color;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
         setContentView(R.layout.activity_main);
         this.setTitle(R.string.name_Palette_activity);
 
-        clickedColor = false;
+       // clickedColor = false;
 
         TextView user_prompt = (TextView) findViewById(R.id._prompt);
         user_prompt.setText(R.string.prompt_text);
@@ -48,8 +55,7 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
         bundle.putStringArrayList(MainActivity.KEY, colors);
         fragment.setArguments(bundle);
 
-
-        fm = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .add(R.id.container_1, fragment)
                 .commit();
@@ -59,17 +65,36 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
 
 
     @Override
-    public void onPause(){
-        super.onPause();
-        clickedColor = false;
+    protected void onSaveInstanceState(Bundle outState) {
+        Log.i("Save", "onRestoreInstanceState: is saved");
+        super.onSaveInstanceState(outState);
+        outState.putString(MainActivity.CLICKED_COLOR,color);
+        outState.putString(MainActivity.COLOR,color);
+        outState.putInt(MainActivity.POSITION,position);
 
     }
 
-
-
+    // when app is bought into the foreground
     @Override
-    public void updateConfiguration(Configuration config){
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        Log.i("Restore", "onRestoreInstanceState: is restored");
+        super.onRestoreInstanceState(savedInstanceState);
+        this.clickedColor = savedInstanceState.getBoolean(MainActivity.CLICKED_COLOR);
+        this.color = savedInstanceState.getString(MainActivity.COLOR);
+        this.position = savedInstanceState.getInt(MainActivity.POSITION);
 
+        ArrayList<String> colors = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.color_array)));
+
+        Bundle bundle = new Bundle();
+        PaletteFragment fragment = PaletteFragment.newInstance(colors);
+        bundle.putStringArrayList(MainActivity.KEY, colors);
+        fragment.setArguments(bundle);
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
+                .replace(R.id.container_1, fragment)
+                .commit();
+
+        displayColor(position, color);
     }
 
 
@@ -88,10 +113,12 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
         if (clickedColor){
             ft.replace(R.id.container_2, canvas)
                     .commit();
-        } else{
+        }else{
             ft.add(R.id.container_2, canvas)
                     .commit();
             clickedColor = true;
         }
+        this.color = color;
+        this.position = positon;
     }
 }
