@@ -3,7 +3,7 @@
     <string name="name_Canvas_activity">Canvas Activity</string>
     <string name="name_Palette_activity">Palette Activity</string>
     <string name="intent_name">name</string>
-    <string name="prompt_text">Click a color below to launch the Canvas</string>
+    <string name="prompt_text">Choose a color cell to display the color</string>
     <string-array name="color_array">
         <item>green</item>
         <item>blue</item>
@@ -18,4 +18,13 @@
     <string name="Language">Language</string>
     <string name="English">English</string>
     <string name="locale_en">en</string>
+    <string name="position">position</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="grid_name" translatable="false">_ColorGrid</string>
+    <string name="textView_name" translatable="false">_ColorView</string>
+    <string name="KEY">key</string>
+    <string name="color">color</string>
+    <string name="main_position">position</string>
+    <string name="clickedColor">clicked_color</string>
+
 </resources>
