@@ -25,3 +25,13 @@
 1. All hard-coded strings are converted to string resources
 
 1. Application doesn't crash when using French language or English language
+
+##### LAB 6 SPECS:
+
+1. PaletteFragment is properly created using a factory method
+
+1. PaletteFragment defines proper mechanism and communicates correctly with parent activity
+
+1. PaletteFragment enforces communication channel between fragment and parent activity
+
+1. CanvasFragment changes color and shows name when color is selected in PaletteFramgent 
