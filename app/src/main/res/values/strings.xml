@@ -22,4 +22,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="grid_name" translatable="false">_ColorGrid</string>
     <string name="textView_name" translatable="false">_ColorView</string>
+    <string name="KEY">key</string>
+    <string name="color">color</string>
+    <string name="main_position">position</string>
+    <string name="clickedColor">clicked_color</string>
+
 </resources>

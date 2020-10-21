@@ -28,13 +28,18 @@ public class PaletteFragment extends Fragment {
 
 
     public PaletteFragment() {
-
     }
 
-    public static PaletteFragment newInstance(ArrayList<String> colors) {
+    /**
+     * @param context need activity to call key in strings.xml
+     * @param colors color arrayList to be passed to adapter
+     * @return PaletteFragment instance
+     */
+    public static PaletteFragment newInstance(Context context, ArrayList<String> colors) {
+
         PaletteFragment fragment = new PaletteFragment();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList(MainActivity.KEY, colors);
+        bundle.putStringArrayList(context.getResources().getString(R.string.KEY), colors);
         fragment.setArguments(bundle);
         return fragment;
 
@@ -44,9 +49,10 @@ public class PaletteFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null){
-            colors = getArguments().getStringArrayList(MainActivity.KEY);
+            colors = getArguments().getStringArrayList(getResources().getString(R.string.KEY));
             adapter = new ColorAdapter(getActivity(), colors, getResources().getConfiguration(), getResources());
         }
+
     }
 
     @Override
@@ -70,6 +76,10 @@ public class PaletteFragment extends Fragment {
         return view;
     }
 
+    /**
+     * calling activity is an implementing FragmentInteractionListener activity
+     * @param context implementing activity
+     */
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
@@ -81,6 +91,9 @@ public class PaletteFragment extends Fragment {
         }
     }
 
+    /**
+     * Activity must implement a medium to channel connection between fragments
+     */
     public interface FragmentInteractionListener{
         void displayColor(int position, String color);
 

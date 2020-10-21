@@ -35,11 +35,13 @@ public class CanvasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view  =  inflater.inflate(R.layout.fragment_canvas, container, false);
         TextView colorView = (TextView) view.findViewById(R.id._colorView);
         Log.i("create_color", "onCreateView: " + color);
 
+        // null: no color is selected thus should only return root view
+        // not null: color is selected so update root view to display color and text
         if (color != null) {
             colorView.setBackgroundColor(Color.parseColor(color));
             colorView.setText(view.getResources().getStringArray(R.array.color_array)[position].toUpperCase());
@@ -49,13 +51,14 @@ public class CanvasFragment extends Fragment {
         return view;
     }
 
-
+    /**
+     * Calling activity updates CanvasFragment members
+     * @param position
+     * @param colorName
+     */
     public void defineColorView(int position, String colorName){
         this.position = position;
         this.color = colorName;
     }
 
-
-
 }
-//send previous color during configuration change

@@ -16,20 +16,13 @@
         <item>grisfonce\</item>
         <item>violette</item>
     </string-array>
-    <!-- the two strings below don't need to be changed, aren't shown to user
-    <string-array name="fr_color_array">
-        <item>green</item>
-        <item>blue</item>
-        <item>red</item>
-        <item>yellow</item>
-        <item>teal</item>
-        <item>cyan</item>
-        <item>magenta</item>
-        <item>darkgray</item>
-        <item>purple</item>
-    </string-array> -->
+
     <string name="Language">Language</string>
     <string name="English">English</string>
     <string name="locale_en">en</string>
     <string name="position">position</string>
+    <string name="KEY">key</string>
+    <string name="color">color</string>
+    <string name="main_position">position</string>
+    <string name="clickedColor">clicked_color</string>
 </resources>

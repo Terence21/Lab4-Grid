@@ -1,15 +1,8 @@
 package temple.edu.gridassignment;
-
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,23 +17,16 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements PaletteFragment.FragmentInteractionListener {
 
-
-    public final static String KEY = "key";
-    public final static String COLOR = "color";
-    public final static String POSITION = "position";
-    public final static String CLICKED_COLOR = "clicked_color";
-
     private boolean clickedColor;
     private String color;
     private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("create", "onCrate: created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle(R.string.name_Palette_activity);
-
-       // clickedColor = false;
 
         TextView user_prompt = (TextView) findViewById(R.id._prompt);
         user_prompt.setText(R.string.prompt_text);
@@ -51,43 +37,48 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
         ArrayList<String> colors = new ArrayList<String>(Arrays.asList(res.getStringArray(R.array.color_array)));
 
         Bundle bundle = new Bundle();
-        PaletteFragment fragment = PaletteFragment.newInstance(colors);
-        bundle.putStringArrayList(MainActivity.KEY, colors);
+        PaletteFragment fragment = PaletteFragment.newInstance(this, colors);
+        bundle.putStringArrayList(getResources().getString(R.string.KEY), colors);
         fragment.setArguments(bundle);
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
                 .add(R.id.container_1, fragment)
                 .commit();
-
-
     }
 
 
+    /**
+     * Save members to bundle when called
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        Log.i("Save", "onRestoreInstanceState: is saved");
+        Log.i("Save", "onSaveInstanceState: is saved");
         super.onSaveInstanceState(outState);
-        outState.putString(MainActivity.CLICKED_COLOR,color);
-        outState.putString(MainActivity.COLOR,color);
-        outState.putInt(MainActivity.POSITION,position);
+        outState.putBoolean(getResources().getString(R.string.clickedColor),clickedColor);
+        outState.putString(getResources().getString(R.string.color),color);
+        outState.putInt(getResources().getString(R.string.main_position),position);
 
     }
 
-    // when app is bought into the foreground
+    /**
+     * restore previous instance state.... onCreate isn't called but onRestore
+     * @param savedInstanceState
+     */
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState){
         Log.i("Restore", "onRestoreInstanceState: is restored");
         super.onRestoreInstanceState(savedInstanceState);
-        this.clickedColor = savedInstanceState.getBoolean(MainActivity.CLICKED_COLOR);
-        this.color = savedInstanceState.getString(MainActivity.COLOR);
-        this.position = savedInstanceState.getInt(MainActivity.POSITION);
+        this.clickedColor = savedInstanceState.getBoolean(getResources().getString(R.string.clickedColor));
+        this.color = savedInstanceState.getString(getResources().getString(R.string.color));
+        this.position = savedInstanceState.getInt(getResources().getString(R.string.main_position));
 
         ArrayList<String> colors = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.color_array)));
 
         Bundle bundle = new Bundle();
-        PaletteFragment fragment = PaletteFragment.newInstance(colors);
-        bundle.putStringArrayList(MainActivity.KEY, colors);
+        PaletteFragment fragment = PaletteFragment.newInstance(this, colors);
+        bundle.putStringArrayList(getResources().getString(R.string.KEY), colors);
         fragment.setArguments(bundle);
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction()
@@ -97,7 +88,11 @@ public class MainActivity extends AppCompatActivity implements PaletteFragment.F
         displayColor(position, color);
     }
 
-
+    /**
+     * create a custom configuration to always send english color to the CanvasFragment
+     * @param positon to send to the CanvasFragment
+     * @param color to set the CanvasFragment to
+     */
     @Override
     public void displayColor(int positon, String color) {
 
